@@ -8,8 +8,8 @@ Connect-4 is a two player game. Players take turns placing their colored pieces 
 
 ## Development Plan Outline
   * Set Up Basic/Ugly Site Framework
-  * Set Up Player Classes
   * Build Play Area
+  * Set Up Player Classes
   * Write Basic Play Flow
   * Add Turn Choice Validation
   * Create Win Condition Checks

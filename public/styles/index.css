@@ -1,6 +1,6 @@
 header, div, section, footer {
     display: block;
-    border: 2px solid darkred;
+    border: 2px solid black;
     padding: 10px;
     background-color: grey;
     margin: 5px;
@@ -22,4 +22,17 @@ a:visited {
 
 #play-area {
     width: 80%;
+}
+
+#game-board {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 15%;
+}
+
+.piece {
+    box-sizing: border-box;
+    flex: 1 0 12%;
+    padding: 6.23% 0;
+    border-radius: 100px;
 }
