@@ -20,10 +20,12 @@ class Player {
 class UI {
     static showBoard(game) {
         let gameBoard = document.querySelector(DOM.board);
-        game.board.forEach(row => {
-            row.forEach(owner => {
+        game.board.forEach(function(row, index_row) {
+            row.forEach(function(owner, index_col) {
                 let space = document.createElement("div");
                 
+                space.style.gridColumnStart = index_col+1;
+                space.style.gridRowStart = index_row+1;
                 space.classList = "piece";
                 
                 if (owner == 1) {

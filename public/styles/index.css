@@ -14,25 +14,24 @@ a:visited {
 
 #main {
     display: flex;
+    justify-content: center;
 }
 
 .player {
-    width: 10%;
-}
-
-#play-area {
-    width: 80%;
+    width: 15%;
 }
 
 #game-board {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0 15%;
+    display: grid;
+    width: 40%;
+    grid-template: (  repeat(6, calc(100%/6)) / repeat(7, calc(100%/7))  );
 }
 
 .piece {
-    box-sizing: border-box;
-    flex: 1 0 12%;
-    padding: 6.23% 0;
+    box-sizing: initial;
+    padding: 0;
+    margin: 2px 0;
+    width: 90%;
+    padding-top: 90%;
     border-radius: 100px;
 }
