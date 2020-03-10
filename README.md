@@ -19,6 +19,7 @@ Connect-4 is a two player game. Players take turns placing their colored pieces 
 ## Optional Features
   * Basic AI
   * Fun Animations
+  * Player Options
   * Game Options
   * Win Streak & Other Stats
   * Advanced AI
