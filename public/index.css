@@ -1,0 +1,25 @@
+header, div, section, footer {
+    display: block;
+    border: 2px solid darkred;
+    padding: 10px;
+    background-color: grey;
+    margin: 5px;
+    text-align: center;
+    color: white;
+}
+
+a:visited {
+    color: lightgray;
+}
+
+#main {
+    display: flex;
+}
+
+.player {
+    width: 10%;
+}
+
+#play-area {
+    width: 80%;
+}
