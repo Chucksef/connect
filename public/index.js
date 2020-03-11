@@ -24,10 +24,9 @@ const DOM = {
 
 class Game {
     constructor() {
-        this.board = [[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,1,2,2,1,0],[0,0,1,2,1,2,0]];
+        this.board = [[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]];
         this.players = [];
         this.currentPlayer = 0;
-        UI.renderBoard(this);
         UI.hide(DOM.menu_Main);
         new Player;
     }
@@ -45,8 +44,7 @@ class Game {
                 alert('CPU Play current disabled');
             })
         } else {
-            document.querySelector(DOM.output_p1Name).innerHTML = this.players[0].name;
-            document.querySelector(DOM.output_p2Name).innerHTML = this.players[1].name;
+            UI.renderBoard(this);
         }
     }
 
@@ -87,7 +85,7 @@ class Player {
 }
 
 class UI {
-    
+
     static clearInput(selector) {
         let element = document.querySelector(selector);
         if (!element) {
@@ -99,6 +97,12 @@ class UI {
     }
 
     static renderBoard(game) {
+
+        // set up non-board related elements
+        document.querySelector(DOM.output_p1Name).innerHTML = game.players[0].name;
+        document.querySelector(DOM.output_p2Name).innerHTML = game.players[1].name;
+
+        // actually render the game board
         let gameBoard = document.querySelector(DOM.board);
         game.board.forEach(function(row, index_row) {
             row.forEach(function(owner, index_col) {
