@@ -48,7 +48,7 @@ a:visited {
     left: 0;
     height: 100%;
     width: 100%;
-    background-color: rgba(200,200,200,.85);
+    background-color: rgba(200,200,200,1);
     border: none;
 }
 
@@ -83,6 +83,7 @@ a:visited {
     margin-left: 50px;
     margin-right: 50px;
     margin-bottom: 10px;
+    font-size: 1.25em;
 }
 
 .form-element:focus {
@@ -90,6 +91,6 @@ a:visited {
     border: none;
 }
 
-#player-form {
-
+.form button {
+    height: 3.25em;
 }

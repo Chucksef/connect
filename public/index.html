@@ -19,17 +19,34 @@
 	</head>
 	
 	<body>
-		<div id="menu-overlay" style="display: none;">
-			<form id="player-form" class="form" style="display: none;">
+		<div id="menu-overlay">
+			<form id="main-menu" class="form">
+				<h3>Welcome to</h3>
+				<h1>Connect 4</h1>
+				<hr>
+				<p>Push 'New Game' to Begin</p>
+				<hr>
+				<button class="form-button" type="button" id="play-game-button">New Game</button>
+			</form>
+
+			<form id="opponent-options" class="form" style="display: none;">
+				<h1>Opponent?</h1>
+				<hr>
+				<button class="form-button" type="button" id="human-opponent-button">Human</button>
+				<button class="form-button" type="button" id="cpu-opponent-button">CPU</button>
+			</form>
+			
+			<form id="player-form" class="form" style="display: none;" onkeydown="return event.key != 'Enter';">
 				<h1>Player Form</h1>
 				<hr>
 				<label for="player-name">Player Name:</label>
 				<input class="form-element" type="text" id="player-name" name="player-name" value="">
-				<button class="form-button" id="save-player">Save <i class="material-icons">check</i></button>
+				<button class="form-button" type="button" id="save-player-button">Save <i class="material-icons">check</i></button>
 			</form>
-			<form id="game-form" style="display: none;">
 
+			<form id="game-form" style="display: none;">
 			</form>
+
 		</div>
 		<header>
 			<h3>Welcome to</h3>
@@ -39,12 +56,12 @@
 
 		<section id="main">
 			<div class="player">
-				<h1>{Player 1 Name}</h1>
+				<h1 id="player1-name">Player 1 Name</h1>
 			</div>
 			<div id="game-board">
 			</div>
 			<div class="player">
-				<h1>{Player 2 Name}</h1>
+				<h1 id="player2-name">Player 2 Name</h1>
 			</div>
 		</section>
 
