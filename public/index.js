@@ -26,6 +26,7 @@ class Game {
     constructor() {
         this.board = [[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,1,2,2,1,0],[0,0,1,2,1,2,0]];
         this.players = [];
+        this.currentPlayer = 0;
         UI.renderBoard(this);
         UI.hide(DOM.menu_Main);
         new Player;
@@ -52,6 +53,15 @@ class Game {
     takeTurn(space) {
 
     }
+
+    checkForWinner() {
+
+    }
+
+    end() {
+
+    }
+
 }
 
 class Player {
@@ -136,21 +146,6 @@ class UI {
         }
 
         element.style.display = "none";
-    }
-
-    static toggleVis(selector) {
-        let element = document.querySelector(selector);
-        if (!element) {
-            console.error(`Cannot find element with selector: ${selector}`)
-            return;
-        }
-        
-        let displayStyle = getComputedStyle(element).display;
-        if(displayStyle != "none"){
-            element.style.display = "none";
-        } else {
-            element.style.display = "";
-        }
     }
 }
 
