@@ -75,3 +75,8 @@ h6 {
 a {
     text-decoration: none;
 }
+
+hr {
+    border: none;
+    border-bottom: 1px white solid;
+}

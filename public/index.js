@@ -73,8 +73,6 @@ class UI {
         }
         
         let displayStyle = getComputedStyle(element).display;
-        let test = element.style;
-        alert(test);
         if(displayStyle != "none"){
             element.style.display = "none";
         } else {

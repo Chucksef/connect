@@ -48,7 +48,8 @@ a:visited {
     left: 0;
     height: 100%;
     width: 100%;
-    background-color: rgba(128,128,128,.85);
+    background-color: rgba(200,200,200,.85);
+    border: none;
 }
 
 .form {
@@ -56,9 +57,37 @@ a:visited {
     flex-direction: column;
     position: relative;
     width: 33%;
+    max-height: calc(100% - 40px);
     top:0;
     left:0;
     margin: auto;
+    padding: 20px;
+    background-color: rgba(200,100,100,1);
+    border-radius: 10px;
+    box-shadow: 0 20px 40px rgba(0,0,0,.5);
+}
+
+.form * {
+    margin: 5px 0;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.form-element {
+    background: rgba(255,255,255,.1);
+    border: none;
+    border-bottom: 1px white solid;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    height: 40px;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 10px;
+}
+
+.form-element:focus {
+    background: rgba(255,255,255,.25);
+    border: none;
 }
 
 #player-form {
