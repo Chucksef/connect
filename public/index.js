@@ -1,7 +1,6 @@
 var mainGame;
 
 const DOM = {
-    board: "#game-board",
     // menus
     menu_Game: "#game-form",
     menu_Main: "#main-menu",
@@ -18,6 +17,7 @@ const DOM = {
     input_PlayerName: "#player-name",
     input_PlayerColor: "#player-color",
     // outputs
+    output_board: "#game-board",
     output_p1Name: "#player1-name",
     output_p2Name: "#player2-name",
 }
@@ -43,6 +43,7 @@ class Game {
             document.querySelector(DOM.btn_CPUOpponent).addEventListener('click', function(){
                 alert('CPU Play current disabled');
             })
+            document.querySelector(DOM.btn_HumanOpponent).focus();
         } else {
             UI.renderBoard(this);
         }
@@ -103,7 +104,7 @@ class UI {
         document.querySelector(DOM.output_p2Name).innerHTML = game.players[1].name;
 
         // actually render the game board
-        let gameBoard = document.querySelector(DOM.board);
+        let gameBoard = document.querySelector(DOM.output_board);
         game.board.forEach(function(row, index_row) {
             row.forEach(function(owner, index_col) {
                 let space = document.createElement("div");
@@ -128,7 +129,7 @@ class UI {
     }
 
     static clearBoard() {
-        let gameBoard = document.querySelector(DOM.board);
+        let gameBoard = document.querySelector(DOM.output_board);
         gameBoard.innerHTML = '';
     }
 
