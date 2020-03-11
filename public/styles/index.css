@@ -35,3 +35,32 @@ a:visited {
     padding-top: 90%;
     border-radius: 100px;
 }
+
+/* MENUS */
+
+#menu-overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(128,128,128,.85);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 33%;
+    top:0;
+    left:0;
+    margin: auto;
+}
+
+#player-form {
+
+}
