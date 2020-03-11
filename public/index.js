@@ -63,18 +63,30 @@ class Player {
         submitBtn = document.querySelector(DOM.btn_SavePlayerOptions)
         submitBtn.parentNode.replaceChild(newSubmitBtn, submitBtn);
         document.querySelector(DOM.btn_SavePlayerOptions).addEventListener('click', this.getName);
+        document.querySelector(DOM.input_PlayerName).focus();
+        
     }
     
     getName() {
         this.name = document.querySelector(DOM.input_PlayerName).value;
         UI.hide(DOM.menu_Player);
         UI.hide(DOM.menu_Overlay);
+        UI.clearInput(DOM.input_PlayerName);
         mainGame.addPlayer(this);
     }
 }
 
 class UI {
     
+    static clearInput(selector) {
+        let element = document.querySelector(selector);
+        if (!element) {
+            console.error(`Cannot clear the value of element with selector: ${selector}`)
+            return;
+        } else {
+            element.value = "";
+        }
+    }
 
     static renderBoard(game) {
         let gameBoard = document.querySelector(DOM.board);
