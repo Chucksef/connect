@@ -26,7 +26,7 @@ class Game {
     constructor() {
         this.board = [[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]];
         this.players = [];
-        this.currentPlayer = 0;
+        this.currentPlayer = 1;
         UI.hide(DOM.menu_Main);
         new Player;
     }
@@ -49,8 +49,18 @@ class Game {
         }
     }
 
-    takeTurn(space) {
+    takeTurn(coords) {
+        this.board[coords.y][coords.x] = this.currentPlayer;
+        this.toggleTurn();
+        UI.renderBoard(this);
+    }
 
+    toggleTurn() {
+        if (this.currentPlayer == 1){
+            this.currentPlayer = 2;
+        } else {
+            this.currentPlayer = 1;
+        }
     }
 
     checkForWinner() {
@@ -121,6 +131,12 @@ class UI {
                     space.style.backgroundColor = "blue";
                 } else if (owner == 2) {
                     space.style.backgroundColor = "red";
+                } else {
+                    space.addEventListener('click', function(e){
+                        let x = e.target.id[0];
+                        let y = e.target.id[1];
+                        game.takeTurn({x: x, y: y});
+                    });
                 }
 
                 gameBoard.appendChild(space);
@@ -156,7 +172,6 @@ class UI {
 
 // Add Event Listeners
 document.querySelector(DOM.btn_HumanOpponent)
-
 document.querySelector(DOM.btn_PlayGame).addEventListener('click', function() {
     mainGame = new Game;
 })
