@@ -63,6 +63,18 @@ class Game {
         }
     }
 
+    validMove(coords) {
+        // return true if all spaces with identical x and lower y value are 0 AND all higher y values > 0
+        
+        let x = parseInt(coords[0]);
+        let y = parseInt(coords[1]);
+
+        if ((y < 5 && this.board[y+1][x] != 0) || y == 5) {
+            return true;
+        }
+        return false;
+    }
+
     checkForWinner() {
 
     }
@@ -119,23 +131,32 @@ class UI {
             row.forEach(function(owner, index_col) {
                 let space = document.createElement("div");
                 
+                // set properties of new 'space' element
                 space.style.gridColumnStart = index_col+1;
                 space.style.gridRowStart = index_row+1;
                 space.classList = "piece";
                 space.id = `${index_col}${index_row}`
-                // space.addEventListener('click', function(e){
-                //     alert(e.target.id);
-                // })
+
                 
+                // store x and y coords as properties of the space
+                space.x = space.id[0];
+                space.y = space.id[1];
+            
+                // check if player 1 owns this space
                 if (owner == 1) {
                     space.style.backgroundColor = "blue";
+                
+                // check if player 2 owns this space
                 } else if (owner == 2) {
                     space.style.backgroundColor = "red";
-                } else {
+
+                // check if space is considered a valid move
+                } else if (game.validMove([space.x, space.y])) {
+                    space.style.backgroundColor = "green";
+
+                    // add an on-click event
                     space.addEventListener('click', function(e){
-                        let x = e.target.id[0];
-                        let y = e.target.id[1];
-                        game.takeTurn({x: x, y: y});
+                        game.takeTurn({x: space.x, y: space.y});
                     });
                 }
 
