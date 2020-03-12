@@ -7,12 +7,14 @@ const DOM = {
     menu_Opponent: "#opponent-options",
     menu_Overlay: "#menu-overlay",
     menu_Player: "#player-form",
+    menu_GameOver: "#game-over",
     // buttons
     btn_PlayGame: "#play-game-button",
     btn_SaveGameOptions: "#save-game-button",
     btn_SavePlayerOptions: "#save-player-button",
     btn_HumanOpponent: "#human-opponent-button",
     btn_CPUOpponent: "#cpu-opponent-button",
+    btn_Reset: "#reset-button",
     // inputs
     input_PlayerName: "#player-name",
     input_PlayerColor: "#player-color",
@@ -20,6 +22,7 @@ const DOM = {
     output_board: "#game-board",
     output_p1Name: "#player1-name",
     output_p2Name: "#player2-name",
+    output_winner: "#winner-output",
 }
 
 class Game {
@@ -51,20 +54,28 @@ class Game {
     }
 
     takeTurn(coords) {
+        // assign the corresponding value to this.board at proper coordinates
         this.board[coords.y][coords.x] = this.currentPlayer;
+
+        // check for winner
         if (this.checkForWinner(coords)){
-            UI.displayWinner();
+            
+            // winner detected!
+            this.winner = this.getWinner();
+            UI.renderBoard(this);
+            UI.gameOver(this.winner);
+            return;
+        } else {
+            
+            // no winner, toggle turn and render Board
+            this.toggleTurn();
+            UI.renderBoard(this);
         }
-        this.toggleTurn();
-        UI.renderBoard(this);
     }
 
     toggleTurn() {
-        if (this.currentPlayer == 1){
-            this.currentPlayer = -1;
-        } else {
-            this.currentPlayer = 1;
-        }
+        // simply toggle back and forth
+        this.currentPlayer *= -1;
     }
 
     validMove(coords) {
@@ -80,24 +91,51 @@ class Game {
     }
 
     checkForWinner(coords) {
-        let winArray = [[[0,0],[1,0],[2,0],[3,0]],[[-1,0],[0,0],[1,0],[2,0]],[[-2,0],[-1,0],[0,0],[1,0]],[[-3,0],[-2,0],[-1,0],[0,0]],[[0,0],[0,1],[0,2],[0,3]],[[0,-1],[0,0],[0,1],[0,2]],[[0,-2],[0,-1],[0,0],[0,1]],[[0,-3],[0,-2],[0,-1],[0,0]],[[0,0],[1,1],[2,2],[3,3]],[[-1,-1],[0,0],[1,1],[2,2]],[[-2,-2],[-1,-1],[0,0],[1,1]],[[-3,-3],[-2,-2],[-1,-1],[0,0]],[[0,0],[-1,1],[-2,2],[-3,3]],[[1,-1],[0,0],[-1,1],[-2,2]],[[2,-2],[1,-1],[0,0],[-1,1]],[[3,-3],[2,-2],[1,-1],[0,0]]];
-        let moveArray = winArray.map(function(i) { 
-            return [i.map(function(j) {
+        let relativeMoves = [[[0,0],[1,0],[2,0],[3,0]],[[-1,0],[0,0],[1,0],[2,0]],[[-2,0],[-1,0],[0,0],[1,0]],[[-3,0],[-2,0],[-1,0],[0,0]],[[0,0],[0,1],[0,2],[0,3]],[[0,-1],[0,0],[0,1],[0,2]],[[0,-2],[0,-1],[0,0],[0,1]],[[0,-3],[0,-2],[0,-1],[0,0]],[[0,0],[1,1],[2,2],[3,3]],[[-1,-1],[0,0],[1,1],[2,2]],[[-2,-2],[-1,-1],[0,0],[1,1]],[[-3,-3],[-2,-2],[-1,-1],[0,0]],[[0,0],[-1,1],[-2,2],[-3,3]],[[1,-1],[0,0],[-1,1],[-2,2]],[[2,-2],[1,-1],[0,0],[-1,1]],[[3,-3],[2,-2],[1,-1],[0,0]]];
+        let absoluteMoves = [];
+        
+        // iterate over relative moves and ultimately build a new array of absolute moves
+        relativeMoves.forEach(function(i) {
+            let k = i.map(function(j) {
                 let coord = [j[1]+parseInt(coords.y),j[0]+parseInt(coords.x)];
                 if ( coord[0]>5 || coord[0]<0 || coord[1]>6 || coord[1]<0 ){
-                    return 0;
+                    return 0; // return 'empty space' value if out of bounds
                 }
                 let val = mainGame.board[coord[0]][coord[1]];
                 //alert(`Value @ ${coord}:\n${val}`);
                 return val;
-            })]
+            })
+            absoluteMoves.push(k);
         })
 
-        alert(moveArray); // <--- THIS RETURNS A FLATTENED ARRAY! NOOO!!!!
-
-        moveArray.forEach(function(arr) {
-
+        // check each sum in the absoluteMoves
+        let winner = false;
+        absoluteMoves.forEach(function(arr) {
+            let sum = 0;
+            arr.forEach(function(p) {
+                sum += p;
+            })
+            if (Math.abs(sum) == 4) {
+                winner = true;
+            }
         })
+
+        // if there's a winner, return true
+        if(winner) {
+            return true
+        } else {
+            return false; // otherwise return false
+        }
+
+    }
+
+    // if the current
+    getWinner() {
+        if (this.currentPlayer > 0) {
+            return this.players[0];
+        } else {
+            return this.players[1];
+        }
     }
 
     end() {
@@ -209,6 +247,11 @@ class UI {
         }
 
         element.style.display = "none";
+    }
+
+    static gameOver(winner) {
+        UI.show(DOM.menu_GameOver);
+        document.querySelector(DOM.output_winner).innerHTML = winner.name;
     }
 }
 
