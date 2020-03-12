@@ -1,5 +1,3 @@
-var mainGame;
-
 const DOM = {
     // menus
     menu_Game: "#game-form",
@@ -29,7 +27,7 @@ const DOM = {
 
 class Game {
     constructor() {
-        this.board = [[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,1,1,1,-1,0]];
+        this.board = [[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]];
         this.players = [];
         this.currentPlayer = 1;
         this.winner = null;
@@ -64,8 +62,7 @@ class Game {
             
             // winner detected!
             this.winner = this.getWinner();
-            UI.renderBoard(this);
-            UI.gameOver(this.winner);
+            this.gameEnd();
             return;
         } else {
             
@@ -139,8 +136,9 @@ class Game {
         }
     }
 
-    end() {
-
+    gameEnd() {
+        UI.renderBoard(this);
+        UI.gameOver(this.winner);
     }
 
 }
@@ -220,7 +218,7 @@ class UI {
 
                 // check if space is considered a valid move
                 } else if (game.validMove([space.x, space.y])) {
-                    space.style.backgroundColor = "rgba(255,255,255,.20)";
+                    space.style.backgroundColor = "rgb(155,155,155)";
 
                     // add an on-click event
                     space.addEventListener('click', function(e){
@@ -267,6 +265,10 @@ class UI {
 
 // Add Event Listeners
 document.querySelector(DOM.btn_HumanOpponent)
+document.querySelector(DOM.btn_Reset).addEventListener('click', function() {
+    UI.hide(DOM.menu_GameOver);
+    mainGame = new Game;
+})
 document.querySelector(DOM.btn_PlayGame).addEventListener('click', function() {
     mainGame = new Game;
 })
