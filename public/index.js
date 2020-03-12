@@ -251,7 +251,7 @@ class UI {
 
     static gameOver(winner) {
         UI.show(DOM.menu_GameOver);
-        document.querySelector(DOM.output_winner).innerHTML = winner.name;
+        document.querySelector(DOM.output_winner).innerHTML = `${winner.name} Wins!`;
     }
 }
 
