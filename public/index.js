@@ -24,9 +24,10 @@ const DOM = {
 
 class Game {
     constructor() {
-        this.board = [[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]];
+        this.board = [[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,1,1,1,-1,0]];
         this.players = [];
         this.currentPlayer = 1;
+        this.winner = null;
         UI.hide(DOM.menu_Main);
         new Player;
     }
@@ -51,13 +52,16 @@ class Game {
 
     takeTurn(coords) {
         this.board[coords.y][coords.x] = this.currentPlayer;
+        if (this.checkForWinner(coords)){
+            UI.displayWinner();
+        }
         this.toggleTurn();
         UI.renderBoard(this);
     }
 
     toggleTurn() {
         if (this.currentPlayer == 1){
-            this.currentPlayer = 2;
+            this.currentPlayer = -1;
         } else {
             this.currentPlayer = 1;
         }
@@ -75,8 +79,25 @@ class Game {
         return false;
     }
 
-    checkForWinner() {
+    checkForWinner(coords) {
+        let winArray = [[[0,0],[1,0],[2,0],[3,0]],[[-1,0],[0,0],[1,0],[2,0]],[[-2,0],[-1,0],[0,0],[1,0]],[[-3,0],[-2,0],[-1,0],[0,0]],[[0,0],[0,1],[0,2],[0,3]],[[0,-1],[0,0],[0,1],[0,2]],[[0,-2],[0,-1],[0,0],[0,1]],[[0,-3],[0,-2],[0,-1],[0,0]],[[0,0],[1,1],[2,2],[3,3]],[[-1,-1],[0,0],[1,1],[2,2]],[[-2,-2],[-1,-1],[0,0],[1,1]],[[-3,-3],[-2,-2],[-1,-1],[0,0]],[[0,0],[-1,1],[-2,2],[-3,3]],[[1,-1],[0,0],[-1,1],[-2,2]],[[2,-2],[1,-1],[0,0],[-1,1]],[[3,-3],[2,-2],[1,-1],[0,0]]];
+        let moveArray = winArray.map(function(i) { 
+            return [i.map(function(j) {
+                let coord = [j[1]+parseInt(coords.y),j[0]+parseInt(coords.x)];
+                if ( coord[0]>5 || coord[0]<0 || coord[1]>6 || coord[1]<0 ){
+                    return 0;
+                }
+                let val = mainGame.board[coord[0]][coord[1]];
+                //alert(`Value @ ${coord}:\n${val}`);
+                return val;
+            })]
+        })
 
+        alert(moveArray); // <--- THIS RETURNS A FLATTENED ARRAY! NOOO!!!!
+
+        moveArray.forEach(function(arr) {
+
+        })
     }
 
     end() {
@@ -147,12 +168,12 @@ class UI {
                     space.style.backgroundColor = "blue";
                 
                 // check if player 2 owns this space
-                } else if (owner == 2) {
+                } else if (owner == -1) {
                     space.style.backgroundColor = "red";
 
                 // check if space is considered a valid move
                 } else if (game.validMove([space.x, space.y])) {
-                    space.style.backgroundColor = "green";
+                    space.style.backgroundColor = "rgb(200,200,200)";
 
                     // add an on-click event
                     space.addEventListener('click', function(e){
