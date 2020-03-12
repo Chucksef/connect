@@ -1,3 +1,5 @@
+var mainGame;
+
 const DOM = {
     // menus
     menu_Game: "#game-form",
@@ -145,25 +147,48 @@ class Game {
 
 class Player {
     constructor() {
+        // show relevant UI elements
         UI.show(DOM.menu_Overlay);
         UI.show(DOM.menu_Player);
+
+        // remove p1's color from the list if relevant
+        let gm = mainGame;
+        if (gm) {
+            let p1_color = `#${gm.players[0].color}`;
+            let elem = document.querySelector(p1_color);
+            elem.style.display = "none";
+        } 
+
+        // add/replace event listeners
         let submitBtn = document.querySelector(DOM.btn_SavePlayerOptions)
         let newSubmitBtn = submitBtn.cloneNode(true);
         submitBtn = document.querySelector(DOM.btn_SavePlayerOptions)
         submitBtn.parentNode.replaceChild(newSubmitBtn, submitBtn);
         document.querySelector(DOM.btn_SavePlayerOptions).addEventListener('click', this.getName);
+
+        // set focus on player name input
         document.querySelector(DOM.input_PlayerName).focus();
         
     }
     
     getName() {
+        let all_radios = document.getElementsByName("piece-color");
+        let color = "";
+        for (let i = 0; i < all_radios.length; i++){
+            if(all_radios[i].checked){
+                color = all_radios[i].value;
+                break;
+            }
+        }
+
         let name = document.querySelector(DOM.input_PlayerName).value.trim();
         name = name.charAt(0).toUpperCase() + name.substring(1);
         name = name.replace(/[ ]+/g, " ");
-        if (name == "") {
-            alert("Please Choose a Name!");
+        if (name == "" || color == "") {
+            alert("Please Choose a Name and Color!");
             document.querySelector(DOM.input_PlayerName).select();
         } else {
+            this.color = color;
             this.name = name;
             UI.hide(DOM.menu_Player);
             UI.hide(DOM.menu_Overlay);
@@ -210,11 +235,11 @@ class UI {
             
                 // check if player 1 owns this space
                 if (owner == 1) {
-                    space.style.backgroundColor = "blue";
+                    space.style.backgroundColor = game.players[0].color;
                 
                 // check if player 2 owns this space
                 } else if (owner == -1) {
-                    space.style.backgroundColor = "red";
+                    space.style.backgroundColor = game.players[1].color;
 
                 // check if space is considered a valid move
                 } else if (game.validMove([space.x, space.y])) {
