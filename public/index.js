@@ -23,6 +23,8 @@ const DOM = {
     output_p1Name: "#player1-name",
     output_p2Name: "#player2-name",
     output_winner: "#winner-output",
+    // special
+    badge: "#badge",
 }
 
 class Game {
@@ -129,7 +131,6 @@ class Game {
 
     }
 
-    // if the current
     getWinner() {
         if (this.currentPlayer > 0) {
             return this.players[0];
@@ -158,11 +159,19 @@ class Player {
     }
     
     getName() {
-        this.name = document.querySelector(DOM.input_PlayerName).value;
-        UI.hide(DOM.menu_Player);
-        UI.hide(DOM.menu_Overlay);
-        UI.clearInput(DOM.input_PlayerName);
-        mainGame.addPlayer(this);
+        let name = document.querySelector(DOM.input_PlayerName).value.trim();
+        name = name.charAt(0).toUpperCase() + name.substring(1);
+        name = name.replace(/[ ]+/g, " ");
+        if (name == "") {
+            alert("Please Choose a Name!");
+            document.querySelector(DOM.input_PlayerName).select();
+        } else {
+            this.name = name;
+            UI.hide(DOM.menu_Player);
+            UI.hide(DOM.menu_Overlay);
+            UI.clearInput(DOM.input_PlayerName);
+            mainGame.addPlayer(this);
+        }
     }
 }
 
@@ -211,7 +220,7 @@ class UI {
 
                 // check if space is considered a valid move
                 } else if (game.validMove([space.x, space.y])) {
-                    space.style.backgroundColor = "rgb(200,200,200)";
+                    space.style.backgroundColor = "rgba(255,255,255,.20)";
 
                     // add an on-click event
                     space.addEventListener('click', function(e){
@@ -251,6 +260,7 @@ class UI {
 
     static gameOver(winner) {
         UI.show(DOM.menu_GameOver);
+        //document.querySelector(DOM.badge).style.fill = `${winner.color}`;
         document.querySelector(DOM.output_winner).innerHTML = `${winner.name} Wins!`;
     }
 }
