@@ -117,8 +117,10 @@ a:visited {
 }
 
 .circle-taken::after {
-    background: radial-gradient(circle at 50% 71%, transparent 50%, rgba(0,0,0,.35));
+    background: radial-gradient(circle at 50% 40%, transparent 30%, rgba(0,0,0,.20));
     transform: scale(.9);
+    border: white 1 solid;
+    border-bottom: none;
 }
 
 .circle-valid::after {
@@ -152,6 +154,7 @@ a:visited {
 
 #game-over {
     position: absolute;
+    z-index: 3;
     top: 0;
     right: 0;
     border: none;
