@@ -18,13 +18,12 @@ input, h1, h2, h3, h4, h5, h6, p, a, button, span, div {
 
 
 
+
 /* ELEMENTS */
 
-header, div, section, footer {
+div, header, footer, section {
     display: block;
-    border: 2px solid black;
     padding: 10px;
-    background-color: grey;
     margin: 5px;
     text-align: center;
     color: white;
@@ -37,26 +36,33 @@ a:visited {
 #main {
     display: flex;
     justify-content: center;
+    position: relative;
+    top: 120px;
 }
 
 .player {
     width: 15%;
+    border-bottom: gray .25em solid;
+    border-bottom-left-radius: .5em;
+    border-bottom-right-radius: .5em;
 }
 
 #game-board {
     display: grid;
     width: 40%;
-    grid-template: (  repeat(6, calc(100%/6)) / repeat(7, calc(100%/7))  );
+    grid-template: repeat(6, 1fr) / repeat(7, 1fr);
     position:unset;
+    background: lightblue;
+    border-bottom: slategray .25em solid;
+    border-radius: .5em;
 }
 
 .piece {
-    box-sizing: initial;
-    padding: 0;
-    margin: 2px 0;
-    width: 90%;
-    padding-top: 90%;
-    border-radius: 100px;
+    box-sizing: border-box;
+    border-radius: 100%;
+    background: white;
+    padding-top: 68%;
+    border: white 2px solid;
 }
 
 h1 {
@@ -82,7 +88,7 @@ h1 {
     left: 0;
     height: 100%;
     width: 100%;
-    background-color: rgba(200,200,200,1);
+    background: radial-gradient(circle, white 35%, rgb(180,180,180));
     border: none;
 }
 
@@ -240,4 +246,24 @@ label.radio i.unchecked {
 
 label.radio i.checked {
     display: none;
+}
+
+
+
+
+/* HEADER & FOOTER */
+
+header, footer {
+    background-color: rgb(80,80,80);
+    position: fixed;
+    width: 100%;
+    margin: 0;
+}
+
+header {
+    top: 0px;
+}
+
+footer {
+    bottom: 0px;
 }

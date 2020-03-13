@@ -195,7 +195,7 @@ class Player {
             this.color = color;
             this.name = name;
             UI.hide(DOM.menu_Player);
-            UI.hide(DOM.menu_Overlay);
+            // UI.hide(DOM.menu_Overlay);
             UI.clearInput(DOM.input_PlayerName);
             mainGame.addPlayer(this);
         }
@@ -259,7 +259,7 @@ class UI {
 
                 // check if space is considered a valid move
                 } else if (game.validMove([space.x, space.y])) {
-                    space.style.backgroundColor = "rgb(155,155,155)";
+                    space.style.border = "3px dashed rgba(0,0,0,.25)";
 
                     // add an on-click event
                     space.addEventListener('click', function(e){
