@@ -64,8 +64,8 @@ a:visited {
     width: 40%;
     grid-template: repeat(6, 1fr) / repeat(7, 1fr);
     position:unset;
-    background: lightblue;
-    border-bottom: slategray .25em solid;
+    background: rgb(50,180,250);
+    border-bottom: rgb(80,80,80) .25em solid;
     border-radius: .5em;
     box-shadow: 0 50px 50px rgba(0,0,0,.5);
 }

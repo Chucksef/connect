@@ -225,6 +225,8 @@ class UI {
     }
     
     static renderBoard(game) {
+        UI.clearBoard();
+
         // highlight current player
         if (game.currentPlayer > 0) {
             document.querySelector(DOM.p1).style.opacity = 1;
@@ -262,6 +264,7 @@ class UI {
                 // check if space is considered a valid move
                 } else if (game.validMove([space.x, space.y])) {
                     space.style.border = "3px dashed rgba(0,0,0,.25)";
+                    space.style.transform = 
 
                     // add an on-click event
                     space.addEventListener('click', function(e){
