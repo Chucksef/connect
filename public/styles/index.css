@@ -16,6 +16,34 @@ input, h1, h2, h3, h4, h5, h6, p, a, button, span, div {
     font-family: 'Comfortaa', sans-serif;
 }
 
+em.r {
+    color: red;    
+}
+
+em.o {
+    color: orange;    
+}
+
+em.y {
+    color: yellow;    
+}
+
+em.g {
+    color: rgb(0, 196, 0);    
+}
+
+em.b {
+    color: rgb(0, 140, 255);    
+}
+
+em.i {
+    color: rgb(119, 0, 255);    
+}
+
+em.v {
+    color: violet;    
+}
+
 
 
 
@@ -114,6 +142,7 @@ a:visited {
     left: 0;
     top: 0;
     box-sizing: border-box;
+    transition: .2s;
 }
 
 .circle-taken::after {
@@ -131,6 +160,7 @@ a:visited {
 
 .circle-valid:hover::after {
     border: 3.5px gray dashed;
+    transform: scale(1.05);
 }
 
 

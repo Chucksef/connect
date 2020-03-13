@@ -148,14 +148,13 @@ class Game {
         UI.renderBoard(this);
         UI.gameOver(this.winner);
     }
-
 }
 
 class Player {
     constructor() {
         // show relevant UI elements
-
         UI.show(DOM.menu_Player);
+        UI.resetColors();
 
         // remove p1's color from the list if relevant
         let gm = mainGame;
@@ -313,20 +312,22 @@ class UI {
         document.querySelector(DOM.output_winner).innerHTML = `${winner.name} Wins!`;
     }
 
+    static resetColors() {
+        // add all relevant elements to array
+        let colors = document.querySelectorAll(".color-selector");
+        colors.forEach(function(element){
+            element.style.display = "block";
+            let radio = element.querySelector("input");
+            radio.checked = false;
+        })
+    }
+
     static reset() {
         UI.hide(DOM.menu_GameOver);
         UI.hide(DOM.panel_main);
         document.querySelector(DOM.p1).style.opacity = "1";
         document.querySelector(DOM.p2).style.opacity = "1";
-        
-        document.querySelector("#firebrick").style.display = "block";
-        document.querySelector("#darkorange").style.display = "block";
-        document.querySelector("#gold").style.display = "block";
-        document.querySelector("#forestgreen").style.display = "block";
-        document.querySelector("#mediumaquamarine").style.display = "block";
-        document.querySelector("#dodgerblue").style.display = "block";
-        document.querySelector("#darkorchid").style.display = "block";
-        document.querySelector("#deeppink").style.display = "block";
+        UI.resetColors();
     }
 }
 
