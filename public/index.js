@@ -1,6 +1,8 @@
 let mainGame;
 
 const DOM = {
+    // panels
+    panel_main: "#main",
     // menus
     menu_Game: "#game-form",
     menu_Main: "#main-menu",
@@ -43,7 +45,6 @@ class Game {
     addPlayer(player) {
         this.players.push(player);
         if(this.players.length < 2) {
-            UI.show(DOM.menu_Overlay);
             UI.show(DOM.menu_Opponent);
             document.querySelector(DOM.btn_HumanOpponent).addEventListener('click', function(){
                 UI.hide(DOM.menu_Opponent)
@@ -55,6 +56,7 @@ class Game {
             document.querySelector(DOM.btn_HumanOpponent).focus();
         } else {
             UI.setUpPlayers(this);
+            UI.show(DOM.panel_main);
             UI.renderBoard(this);
         }
     }
@@ -152,7 +154,7 @@ class Game {
 class Player {
     constructor() {
         // show relevant UI elements
-        UI.show(DOM.menu_Overlay);
+
         UI.show(DOM.menu_Player);
 
         // remove p1's color from the list if relevant
@@ -305,6 +307,7 @@ class UI {
 
     static reset() {
         UI.hide(DOM.menu_GameOver);
+        UI.hide(DOM.panel_main);
         document.querySelector(DOM.p1).style.opacity = "1";
         document.querySelector(DOM.p2).style.opacity = "1";
         
