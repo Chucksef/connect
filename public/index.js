@@ -32,6 +32,7 @@ const DOM = {
     svg: "#svg",
 }
 
+
 class Game {
     constructor() {
         this.board = [[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]];
@@ -146,9 +147,18 @@ class Game {
 
     gameEnd() {
         UI.renderBoard(this);
+
+        // get all pieces and clone to remove all event listeners
+        let pieces = document.querySelectorAll(".circle-valid");
+        pieces.forEach(function(piece){
+            let newPiece = piece.cloneNode(true);
+            piece.parentNode.replaceChild(newPiece, piece);
+        })
+
         UI.gameOver(this.winner);
     }
 }
+
 
 class Player {
     constructor() {
@@ -169,11 +179,11 @@ class Player {
         let newSubmitBtn = submitBtn.cloneNode(true);
         submitBtn = document.querySelector(DOM.btn_SavePlayerOptions)
         submitBtn.parentNode.replaceChild(newSubmitBtn, submitBtn);
+
         document.querySelector(DOM.btn_SavePlayerOptions).addEventListener('click', this.getName);
 
         // set focus on player name input
         document.querySelector(DOM.input_PlayerName).focus();
-        
     }
     
     getName() {
@@ -187,8 +197,12 @@ class Player {
         }
 
         let name = document.querySelector(DOM.input_PlayerName).value.trim();
-        name = name.charAt(0).toUpperCase() + name.substring(1);
         name = name.replace(/[ ]+/g, " ");
+        let nameArray = name.split(" ");
+        for (let i=0; i<nameArray.length; i++){
+            nameArray[i] = nameArray[i].charAt(0).toUpperCase() + nameArray[i].substring(1).toLowerCase();
+        }
+        name = nameArray.join(' ');
         if (name == "" || color == "") {
             alert("Please Choose a Name and Color!");
             document.querySelector(DOM.input_PlayerName).select();
@@ -202,6 +216,7 @@ class Player {
         }
     }
 }
+
 
 class UI {
 
@@ -330,6 +345,7 @@ class UI {
         UI.resetColors();
     }
 }
+
 
 // Add Event Listeners
 document.querySelector(DOM.btn_HumanOpponent)
