@@ -16,6 +16,10 @@ input, h1, h2, h3, h4, h5, h6, p, a, button, span, div {
     font-family: 'Comfortaa', sans-serif;
 }
 
+
+
+/* ELEMENTS */
+
 header, div, section, footer {
     display: block;
     border: 2px solid black;
@@ -54,6 +58,17 @@ a:visited {
     padding-top: 90%;
     border-radius: 100px;
 }
+
+h1 {
+    font-size: 2em;
+}
+
+#logo { 
+    font-size: 5em;
+}
+
+
+
 
 /* MENUS */
 
@@ -166,6 +181,7 @@ a:visited {
 .form button {
     height: 3.25em;
 }
+
 
 
 
