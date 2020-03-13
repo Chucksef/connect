@@ -19,7 +19,7 @@
 	</head>
 	
 	<body>
-		<div id="menu-overlay">
+		<div id="site-background">
 			<form id="main-menu" class="form">
 				<h3>Welcome to</h3>
 				<h1>Connect 4</h1>
@@ -101,7 +101,9 @@
 
 		<section id="main" style="display: none;">
 			<div id="p1" class="player" style="background-color: blue;">
-				<h1 id="player1-name"></h1>
+				<div class="grad-overlay">
+					<h1 id="player1-name"></h1>
+				</div>
 			</div>
 			<div id="game-board">
 				<div id="game-over" style="display: none;">
@@ -117,7 +119,9 @@
 				</div>
 			</div>
 			<div id="p2" class="player" style="background-color: red;">
-				<h1 id="player2-name"></h1>
+				<div class="grad-overlay">
+					<h1 id="player2-name"></h1>
+				</div>
 			</div>
 		</section>
 

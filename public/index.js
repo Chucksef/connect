@@ -3,11 +3,11 @@ let mainGame;
 const DOM = {
     // panels
     panel_main: "#main",
+    panel_Background: "#site-background",
     // menus
     menu_Game: "#game-form",
     menu_Main: "#main-menu",
     menu_Opponent: "#opponent-options",
-    menu_Overlay: "#menu-overlay",
     menu_Player: "#player-form",
     menu_GameOver: "#game-over",
     // buttons
@@ -197,7 +197,7 @@ class Player {
             this.color = color;
             this.name = name;
             UI.hide(DOM.menu_Player);
-            // UI.hide(DOM.menu_Overlay);
+            // UI.hide(DOM.panel_Background);
             UI.clearInput(DOM.input_PlayerName);
             mainGame.addPlayer(this);
         }
