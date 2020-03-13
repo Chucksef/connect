@@ -1,4 +1,4 @@
-var mainGame;
+let mainGame;
 
 const DOM = {
     // menus
@@ -25,6 +25,9 @@ const DOM = {
     output_winner: "#winner-output",
     // special
     badge: "#badge",
+    p1: "#p1",
+    p2: "#p2",
+    svg: "#svg",
 }
 
 class Game {
@@ -51,6 +54,7 @@ class Game {
             })
             document.querySelector(DOM.btn_HumanOpponent).focus();
         } else {
+            UI.setUpPlayers(this);
             UI.renderBoard(this);
         }
     }
@@ -210,11 +214,23 @@ class UI {
         }
     }
 
-    static renderBoard(game) {
-
-        // set up non-board related elements
+    static setUpPlayers(game) {
+        // set up player-related elements
         document.querySelector(DOM.output_p1Name).innerHTML = game.players[0].name;
         document.querySelector(DOM.output_p2Name).innerHTML = game.players[1].name;
+        document.querySelector(DOM.p1).style.backgroundColor = game.players[0].color;
+        document.querySelector(DOM.p2).style.backgroundColor = game.players[1].color;
+    }
+    
+    static renderBoard(game) {
+        // highlight current player
+        if (game.currentPlayer > 0) {
+            document.querySelector(DOM.p1).style.opacity = 1;
+            document.querySelector(DOM.p2).style.opacity = .33;
+        } else {
+            document.querySelector(DOM.p1).style.opacity = .33;
+            document.querySelector(DOM.p2).style.opacity = 1;
+        }
 
         // actually render the game board
         let gameBoard = document.querySelector(DOM.output_board);
@@ -283,15 +299,31 @@ class UI {
 
     static gameOver(winner) {
         UI.show(DOM.menu_GameOver);
-        //document.querySelector(DOM.badge).style.fill = `${winner.color}`;
+        document.querySelector(DOM.svg).style.fill = `${winner.color}`;
         document.querySelector(DOM.output_winner).innerHTML = `${winner.name} Wins!`;
+    }
+
+    static reset() {
+        UI.hide(DOM.menu_GameOver);
+        document.querySelector(DOM.p1).style.opacity = "1";
+        document.querySelector(DOM.p2).style.opacity = "1";
+        
+        document.querySelector("#firebrick").style.display = "block";
+        document.querySelector("#darkorange").style.display = "block";
+        document.querySelector("#gold").style.display = "block";
+        document.querySelector("#forestgreen").style.display = "block";
+        document.querySelector("#mediumaquamarine").style.display = "block";
+        document.querySelector("#dodgerblue").style.display = "block";
+        document.querySelector("#darkorchid").style.display = "block";
+        document.querySelector("#deeppink").style.display = "block";
     }
 }
 
 // Add Event Listeners
 document.querySelector(DOM.btn_HumanOpponent)
 document.querySelector(DOM.btn_Reset).addEventListener('click', function() {
-    UI.hide(DOM.menu_GameOver);
+    UI.reset();
+    mainGame = "";
     mainGame = new Game;
 })
 document.querySelector(DOM.btn_PlayGame).addEventListener('click', function() {
