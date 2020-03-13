@@ -242,10 +242,14 @@ class UI {
             row.forEach(function(owner, index_col) {
                 let space = document.createElement("div");
                 
+                // create and store an inner circle
+                space.innerHTML = "<div class='circle'></div>"
+                let circle = space.querySelector(".circle");
+                
                 // set properties of new 'space' element
                 space.style.gridColumnStart = index_col+1;
                 space.style.gridRowStart = index_row+1;
-                space.classList = "piece";
+                space.classList = "grid-space";
                 space.id = `${index_col}${index_row}`
 
                 
@@ -255,19 +259,20 @@ class UI {
             
                 // check if player 1 owns this space
                 if (owner == 1) {
-                    space.style.backgroundColor = game.players[0].color;
-                
-                // check if player 2 owns this space
+                    circle.classList = "circle-taken";
+                    circle.style.backgroundColor = game.players[0].color;
+                    
+                    // check if player 2 owns this space
                 } else if (owner == -1) {
-                    space.style.backgroundColor = game.players[1].color;
+                    circle.classList = "circle-taken";
+                    circle.style.backgroundColor = game.players[1].color;
 
                 // check if space is considered a valid move
                 } else if (game.validMove([space.x, space.y])) {
-                    space.style.border = "3px dashed rgba(0,0,0,.25)";
-                    space.style.transform = 
+                    circle.classList = "circle-valid";
 
                     // add an on-click event
-                    space.addEventListener('click', function(e){
+                    circle.addEventListener('click', function(e){
                         game.takeTurn({x: space.x, y: space.y});
                     });
                 }

@@ -21,6 +21,14 @@ input, h1, h2, h3, h4, h5, h6, p, a, button, span, div {
 
 /* ELEMENTS */
 
+h1 {
+    font-size: 2em;
+}
+
+#logo { 
+    font-size: 5em;
+}
+
 div, header, footer, section {
     display: block;
     padding: 10px;
@@ -32,6 +40,11 @@ div, header, footer, section {
 a:visited {
     color: lightgray;
 }
+
+
+
+
+/* MAIN BOARD ELEMENTS */
 
 #main {
     display: flex;
@@ -65,25 +78,57 @@ a:visited {
     grid-template: repeat(6, 1fr) / repeat(7, 1fr);
     position:unset;
     background: rgb(50,180,250);
-    border-bottom: rgb(80,80,80) .25em solid;
+    border-bottom: rgb(71, 120, 146) .25em solid;
     border-radius: .5em;
     box-shadow: 0 50px 50px rgba(0,0,0,.5);
 }
 
-.piece {
+.grid-space {
     box-sizing: border-box;
-    border-radius: 100%;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 5px;
+}
+
+.circle, .circle-taken, .circle-valid {
+    position: relative;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
     background: white;
-    padding-top: 68%;
-    border: white 2px solid;
+    border-radius: 100%;
+    width: 100%;
+    padding-top: 100%;
 }
 
-h1 {
-    font-size: 2em;
+.circle::after, .circle-taken::after, .circle-valid::after {
+    content: "";
+    height: 100%;
+    width: 100%;
+    background: radial-gradient(circle at 50% 56%, transparent 65%, rgb(71, 120, 146) 67%);
+    border-radius: 100%;
+    position: absolute;
+    display: block;
+    left: 0;
+    top: 0;
+    box-sizing: border-box;
 }
 
-#logo { 
-    font-size: 5em;
+.circle-taken::after {
+    background: radial-gradient(circle at 50% 71%, transparent 50%, rgba(0,0,0,.35));
+    transform: scale(.9);
+}
+
+.circle-valid::after {
+    background: white;
+    border: 3.5px rgba(0,0,0,.1) dashed;
+    transform: scale(.9);
+}
+
+.circle-valid:hover::after {
+    border: 3.5px gray dashed;
 }
 
 
